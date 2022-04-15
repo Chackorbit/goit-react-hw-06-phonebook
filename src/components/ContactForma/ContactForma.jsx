@@ -3,7 +3,7 @@ import { useState } from 'react';
 import s from './ContactForma.module.css';
 
 const ContactForma = ({ submitBtn }) => {
-  const [userName, setUserName] = useState('');
+  const [name, setUserName] = useState('');
   const [number, setNumber] = useState('');
 
   const addName = e => {
@@ -18,7 +18,7 @@ const ContactForma = ({ submitBtn }) => {
   const onSubmit = e => {
     e.preventDefault();
 
-    submitBtn(userName, number);
+    submitBtn(name, number);
 
     setUserName('');
     setNumber('');
@@ -31,7 +31,7 @@ const ContactForma = ({ submitBtn }) => {
         <input
           className={s.inputName}
           onChange={addName}
-          value={userName}
+          value={name}
           type="text"
           name="name"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -49,7 +49,7 @@ const ContactForma = ({ submitBtn }) => {
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
         />
-        <button className={s.formBtn} type="submit">
+        <button className={s.formBtn} type="submit" onClick={onSubmit}>
           Add name
         </button>
       </form>
