@@ -1,24 +1,23 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { reducerForItems, reducerForFilter } from './Reducer';
+// import { reducerForItems, reducerForFilter } from './Reducer';
+import { contactSlice, filterSlice } from './contactsSlice';
 
-// export const getContact = state => state.items;
-// export const getFilter = state => state.filter;
-// console.log(getContact());
-// console.log(getFilter());
+export const getContacts = state => state.items;
+export const getFilter = state => state.filter;
 
-// export const getAllContacts = state => {
-//   const contacts = getContact(state);
-//   const filter = getFilter(state);
+export const getAllContacts = state => {
+  const contacts = getContacts(state);
+  const filter = getFilter(state);
 
-//   const normalizeFilter = filter.toLocaleLowerCase();
-//   return contacts.filter(contact =>
-//     contact.name.toLowerCase().includes(normalizeFilter)
-//   );
-// };
+  const normalizeFilter = filter.toLocaleLowerCase();
+  return contacts.filter(contact =>
+    contact.name.toLowerCase().includes(normalizeFilter)
+  );
+};
 
 export const store = configureStore({
   reducer: {
-    items: reducerForItems,
-    filter: reducerForFilter,
+    items: contactSlice.reducer,
+    filter: filterSlice.reducer,
   },
 });

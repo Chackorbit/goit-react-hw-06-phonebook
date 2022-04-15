@@ -1,7 +1,7 @@
 import s from './Filter.module.css';
 import React from 'react';
 import { nanoid } from 'nanoid';
-import { filter } from 'redux/Actions';
+import { filter } from 'redux/contactsSlice';
 import { useDispatch } from 'react-redux';
 
 export default function Filter() {
