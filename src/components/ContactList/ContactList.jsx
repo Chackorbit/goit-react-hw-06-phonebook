@@ -4,10 +4,23 @@ import ContactItem from '../ContactItem/ContactItem';
 import { nanoid } from 'nanoid';
 import { useSelector, useDispatch } from 'react-redux';
 import { remove } from 'redux/contactsSlice';
-import { getAllContacts } from 'redux/store';
 
 const ContactList = () => {
   const dispatch = useDispatch();
+
+  const getContacts = state => state.items.items;
+  const getFilter = state => state.filter;
+
+  const getAllContacts = state => {
+    const contacts = getContacts(state);
+    const searchName = getFilter(state);
+
+    const normalizeFilter = searchName.toLocaleLowerCase();
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizeFilter)
+    );
+  };
+
   const allContacts = useSelector(getAllContacts);
 
   return (

@@ -1,10 +1,16 @@
 import React from 'react';
 import { useState } from 'react';
 import s from './ContactForma.module.css';
+import { useDispatch } from 'react-redux';
+import { nanoid } from 'nanoid';
+import { addContact } from 'redux/contactsSlice';
+import { useSelector } from 'react-redux';
 
-const ContactForma = ({ submitBtn }) => {
+const ContactForma = () => {
   const [name, setUserName] = useState('');
   const [number, setNumber] = useState('');
+  const dispatch = useDispatch();
+  const allContacts = useSelector(state => state.items.items);
 
   const addName = e => {
     const { name, value } = e.currentTarget;
@@ -13,6 +19,31 @@ const ContactForma = ({ submitBtn }) => {
     } else if (name === 'number') {
       setNumber(value);
     }
+  };
+
+  const submitBtn = (name, number) => {
+    const normalizedName = name.toLowerCase();
+
+    const checkedForName = allContacts.find(
+      contact => normalizedName === contact.name.toLocaleLowerCase()
+    );
+
+    if (checkedForName) {
+      return alert(`${name} is already in contacts`);
+    }
+
+    const newContact = {
+      id: nanoid(),
+      name: name,
+      number: number,
+    };
+
+    if (!name || !number) {
+      alert('Invalid name or number value!');
+      return;
+    }
+
+    dispatch(addContact(newContact));
   };
 
   const onSubmit = e => {
