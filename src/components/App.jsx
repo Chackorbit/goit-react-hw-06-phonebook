@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import ContactForma from './ContactForma/ContactForma';
 import ContactList from './ContactList/ContactList';
 import s from './App.module.css';
